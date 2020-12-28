@@ -1,19 +1,36 @@
 const express = require("express");
-const authController = require("../controllers/authcontroller");
+const imgController = require("../controllers/imageController");
 const upload = require("../helpers/img_upload");
+const middleware = require("../middlewares/auth");
 const router = express.Router();
-router.get("/addphoto", (req, res) => {
-  res.render("addPhoto");
+
+router.get("/addphoto", middleware.checkLogedIn, (req, res) => {
+  res.render("addPhoto", {
+    error: {
+      message: null,
+    },
+  });
 });
+
 router.post(
   "/addphoto",
-  upload.single("image"),
-  (req, res) => {
-    console.log(req.file);
-  },
+  [middleware.checkLogedIn, upload.single("image")],
+  imgController.addImge,
   (err, req, res, next) => {
-    console.log(err);
+    res.render("addPhoto", {
+      error: {
+        message: err.message,
+      },
+    });
+    next(err);
   }
 );
+
+router.delete(
+  "/addPhoto/:id",
+  [middleware.checkLogedIn, middleware.checkPublisher],
+  imgController.deleteImage
+);
+router.get("/myphotos", middleware.checkLogedIn, imgController.myphotos);
 
 module.exports = router;

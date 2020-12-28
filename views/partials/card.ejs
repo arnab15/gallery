@@ -1,0 +1,19 @@
+<div class="card" style="width: 20rem; height: auto">
+  <img
+    class="card-img-top"
+    style="height: 20rem; object-fit: scale-down"
+    src="<%= url %>"
+    alt="Card image cap"
+  />
+  <div class="card-body">
+    <% if(description){ %>
+    <p class="text-center"><%= description %></p>
+    <%} %> <% if(author){ %>
+    <p class="text-center">@<%= author.name %></p>
+    <%}%> <% if(currentUser&&author&&currentUser._id.equals(author._id)){ %>
+    <form action="/addPhoto/<%=id%>?_method=DELETE" method="POST">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <% } %>
+  </div>
+</div>

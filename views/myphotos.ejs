@@ -1,9 +1,9 @@
 <%- include('./partials/header'); %>
-<h1 class="text-center">Gallery</h1>
+<h1 class="text-center">My Gallery</h1>
 <div class="container mx-auto">
-  <% if(data.length!==0){%>
+  <% if(myImages.length!==0){%>
   <div class="row">
-    <% data.forEach(img=>{%> <% const {_id,url,description,author}=img %>
+    <% myImages.forEach(img=>{%> <% const {_id,url,description,author}=img %>
     <div class="col-sm-12 col-md-4 my-4">
       <%- include('./partials/card',{ url, description,author,id:_id}); %>
     </div>
