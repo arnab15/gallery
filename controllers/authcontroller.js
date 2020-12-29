@@ -5,6 +5,8 @@ const signup = async (req, res, next) => {
   try {
     const userExist = await User.findOne({ email });
     if (userExist) {
+      req.flash("error", "User with this email already exist please login");
+
       res.render("signup", {
         error: {
           message: "User with this email already exist",
