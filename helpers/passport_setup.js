@@ -2,6 +2,7 @@ const LocalStratigy = require("passport-local").Strategy;
 const passport = require("passport");
 const User = require("../models/user");
 const { comparePasword } = require("./hash_password");
+
 const initializePassport = () => {
   const authanticateUser = async (email, password, done) => {
     const user = await User.findOne({ email });

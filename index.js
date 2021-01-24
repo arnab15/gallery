@@ -1,4 +1,4 @@
-if (process.env.NODE_ENV === "devlopment") {
+if (!process.env.NODE_ENV) {
   require("dotenv").config();
 }
 console.log(process.env.NODE_ENV);
@@ -18,9 +18,9 @@ initializePassport(passport);
 const app = express();
 app.set("view engine", "ejs");
 
-app.use("/uploads", express.static("uploads"));
 app.use(methodOverRide("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

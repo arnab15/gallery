@@ -1,14 +1,12 @@
 # Photo gallery 
-## I devloped This web application for my shopify 2021 summar backend devlopment internship program
 ---
 
 ### [Live website link](https://gallery-web.herokuapp.com/)
-##### *** As i deployed it on heroku so it will not show previously stored images as after restart heroku deletes stored files that are generated after deployment to heroku *** 
+** updated image uplod to use cloudinary **
 
 ----
 ----
 ## still currently working upon updates
-- Trying to store image data in Any cloud storage bucket as in memory storing image reduce the performance
 - trying to Implement search functionality 
 - trying to multiple image upload and delete funtionality
 ----
@@ -17,9 +15,11 @@
 - mongodb
 - expressjs
 - ejs
+- cloudinary for storing image in cloud bucket
 - passportjs for cookie and session based authentication
 - multer for file uploading
-- it basicaaly stored the images in server disk after uploading the image
+- it basicaaly stored the images in cloudinary after uploading the image
+  --
 ### how to use it in your local Mechine
 1. clone or download this rero
 2. download and install mongodb and run it in your local devlopment setup

@@ -20,6 +20,11 @@ const imageSchema = new Schema({
     type: String,
     maxlength: 100,
   },
+  public_id: {
+    required: true,
+    trim: true,
+    type: String,
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

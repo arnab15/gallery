@@ -1,13 +1,24 @@
 const { ImageModel } = require("../models/imageDetails");
-const { deleteFIle } = require("../helpers/delete_Img");
+const {
+  uploadImage,
+  deleteFileFromBucket,
+} = require("../helpers/cloudinary_file_upload");
+
 const addImge = async (req, res, next) => {
-  const newImage = new ImageModel({
-    url: req.file.path,
-    description: req.body.description,
-    catagorey: req.body.catagorey,
-    author: req.user._id,
-  });
   try {
+    const { public_id, secure_url } = await uploadImage(
+      req.file.path,
+      "gallery"
+    );
+
+    const newImage = new ImageModel({
+      url: secure_url,
+      description: req.body.description,
+      catagorey: req.body.catagorey,
+      public_id,
+      author: req.user._id,
+    });
+
     await newImage.save();
     res.redirect("/");
   } catch (error) {
@@ -19,9 +30,10 @@ const deleteImage = async (req, res, next) => {
     const _id = req.params.id.trim();
     const imgExist = await ImageModel.findById(_id);
     if (!imgExist) return res.redirect("/");
-    const fileDeleted = await deleteFIle(imgExist.url);
-    console.log(fileDeleted);
-    const doc = await ImageModel.findByIdAndDelete(_id);
+
+    await deleteFileFromBucket(imgExist.public_id);
+    await ImageModel.findByIdAndDelete(_id);
+
     res.redirect("/");
   } catch (error) {
     next(error);

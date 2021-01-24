@@ -1,6 +1,6 @@
 const express = require("express");
 const imgController = require("../controllers/imageController");
-const upload = require("../helpers/img_upload");
+const upload = require("../helpers/multer");
 const middleware = require("../middlewares/auth");
 const router = express.Router();
 
